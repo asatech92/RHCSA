@@ -1,0 +1,43 @@
+[root@localhost ~]# #How to Extend LVM
+[root@localhost ~]# #No need to unmount to extend LVM
+[root@localhost ~]# df -TH
+Filesystem               Type      Size  Used Avail Use% Mounted on
+devtmpfs                 devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                    tmpfs     2.0G   14M  2.0G   1% /dev/shm
+tmpfs                    tmpfs     2.0G   10M  2.0G   1% /run
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root    xfs        28G  4.3G   24G  16% /
+/dev/sda1                xfs       1.1G  192M  872M  19% /boot
+tmpfs                    tmpfs     398M   33k  398M   1% /run/user/0
+/dev/sr0                 iso9660   4.6G  4.6G     0 100% /mnt
+/dev/mapper/myvol-my_lvm ext4      1.1G  2.7M  951M   1% /kinglvm
+[root@localhost ~]# lvextend -L +80M /dev/myvol/my_lvm 
+  Insufficient free space: 5 extents needed, but only 1 available
+[root@localhost ~]# lvextend -L +10M /dev/myvol/my_lvm 
+  Rounding size to boundary between physical extents: 16.00 MiB.
+  Size of logical volume myvol/my_lvm changed from 1.00 GiB (64 extents) to <1.02 GiB (65 extents).
+  Logical volume myvol/my_lvm successfully resized.
+[root@localhost ~]# resize2fs /dev/myvol/my_lvm 
+resize2fs 1.42.9 (28-Dec-2013)
+Filesystem at /dev/myvol/my_lvm is mounted on /kinglvm; on-line resizing required
+old_desc_blocks = 1, new_desc_blocks = 1
+The filesystem on /dev/myvol/my_lvm is now 266240 blocks long.
+
+[root@localhost ~]# lvs
+  LV     VG    Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  my_lvm myvol -wi-ao----  <1.02g                                                    
+  root   rhel  -wi-ao---- <26.00g                                                    
+  swap   rhel  -wi-ao----   3.00g                                                    
+[root@localhost ~]# df -TH
+Filesystem               Type      Size  Used Avail Use% Mounted on
+devtmpfs                 devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                    tmpfs     2.0G   14M  2.0G   1% /dev/shm
+tmpfs                    tmpfs     2.0G   10M  2.0G   1% /run
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root    xfs        28G  4.3G   24G  16% /
+/dev/sda1                xfs       1.1G  192M  872M  19% /boot
+tmpfs                    tmpfs     398M   33k  398M   1% /run/user/0
+/dev/sr0                 iso9660   4.6G  4.6G     0 100% /mnt
+/dev/mapper/myvol-my_lvm ext4      1.1G  2.7M  965M   1% /kinglvm
+
+#We can see available space for myvol-my_lvm is now 965M from 951M

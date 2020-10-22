@@ -1,0 +1,217 @@
+[root@localhost ~]# #1. Create swap,2. Mention in FS Tab 3. Dont modify existing swap
+[root@localhost ~]# #Check free memory
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           3.7G        1.1G        1.6G         44M        1.0G        2.3G
+Swap:          3.0G          0B        3.0G
+[root@localhost ~]# #Check existing swap
+[root@localhost ~]# swapon -s
+Filename				Type		Size	Used	Priority
+/dev/dm-1                              	partition	3145724	0	-2
+[root@localhost ~]# swapon -v
+NAME      TYPE      SIZE USED PRIO
+/dev/dm-1 partition   3G   0B   -2
+[root@localhost ~]# cat /proc/swaps 
+Filename				Type		Size	Used	Priority
+/dev/dm-1                               partition	3145724	0	-2
+[root@localhost ~]# #Create partition according to the size given in exam
+[root@localhost ~]# #Here I am using /dev/sdb disk to perform this task,I used it earlier for LVM. I have kept /dev/sdc for VDO task
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000dabca
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    62914559    30407680   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+
+Disk /dev/mapper/rhel-root: 27.9 GB, 27913093120 bytes, 54517760 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 3221 MB, 3221225472 bytes, 6291456 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/myvol-my_lvm: 67 MB, 67108864 bytes, 131072 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+[root@localhost ~]# fdisk /dev/sdb
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): 
+Command (m for help): 
+Command (m for help): n
+Partition type:
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended
+Select (default p): p
+Partition number (2-4, default 2): 
+First sector (2152448-20971519, default 2152448): 
+Using default value 2152448
+Last sector, +sectors or +size{K,M,G} (2152448-20971519, default 20971519): +986M
+Partition 2 of type Linux and of size 986 MiB is set
+
+Command (m for help): p
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+/dev/sdb2         2152448     4171775     1009664   83  Linux
+
+Command (m for help): t
+Partition number (1,2, default 2): 82
+Value out of range.
+Partition number (1,2, default 2): p
+Partition number (1,2, default 2): 
+Hex code (type L to list all codes): 82
+Changed type of partition 'Linux' to 'Linux swap / Solaris'
+
+Command (m for help): p
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+/dev/sdb2         2152448     4171775     1009664   82  Linux swap / Solaris
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8)
+Syncing disks.
+[root@localhost ~]# partprobe /dev/sdb
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000dabca
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    62914559    30407680   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+/dev/sdb2         2152448     4171775     1009664   82  Linux swap / Solaris
+
+Disk /dev/mapper/rhel-root: 27.9 GB, 27913093120 bytes, 54517760 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 3221 MB, 3221225472 bytes, 6291456 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/myvol-my_lvm: 67 MB, 67108864 bytes, 131072 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+[root@localhost ~]# #Create swap
+[root@localhost ~]# mkswap /dev/sdb2
+Setting up swapspace version 1, size = 1009660 KiB
+no label, UUID=9a029ab6-c88d-441f-9f42-0dbec3edd16b
+[root@localhost ~]# #Above we will enter the partition we have created for swap not the whole disk
+[root@localhost ~]# #Verify weather its created
+[root@localhost ~]# blkid
+/dev/sda1: UUID="f509ff37-cc90-4398-8632-9ce82422a622" TYPE="xfs" 
+/dev/sda2: UUID="Li1vfp-A1K9-p3Zq-NIQL-Tmuk-1Vre-mAC6eN" TYPE="LVM2_member" 
+/dev/sdb1: UUID="cFyaQc-TSqc-oGl1-1hFY-fLXq-S2FO-kVmvIv" TYPE="LVM2_member" 
+/dev/sr0: UUID="2020-09-17-19-35-15-00" LABEL="RHEL-7.9 Server.x86_64" TYPE="iso9660" PTTYPE="dos" 
+/dev/mapper/rhel-root: UUID="a7320886-57bd-4c82-a911-5d2108cfae68" TYPE="xfs" 
+/dev/mapper/rhel-swap: UUID="49761ca5-9765-45dc-8c61-7019a6463c15" TYPE="swap" 
+/dev/mapper/myvol-my_lvm: UUID="c27b3af7-c20b-4341-b843-5b6a64b0cac0" TYPE="ext4" 
+/dev/sdb2: UUID="9a029ab6-c88d-441f-9f42-0dbec3edd16b" TYPE="swap" 
+[root@localhost ~]# #We dont format and mount swap as we do for other disks
+[root@localhost ~]# #We activate swap
+[root@localhost ~]# swapon /dev/sdb2 
+[root@localhost ~]# #Verify weather its activated
+[root@localhost ~]# swapon -s
+Filename				Type		Size	Used	Priority
+/dev/dm-1                              	partition	3145724	0	-2
+/dev/sdb2                              	partition	1009660	0	-3
+[root@localhost ~]# swapon -v
+NAME      TYPE      SIZE USED PRIO
+/dev/dm-1 partition   3G   0B   -2
+/dev/sdb2 partition 986M   0B   -3
+[root@localhost ~]# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           3.7G        1.1G        1.6G         44M        1.0G        2.3G
+Swap:          4.0G          0B        4.0G
+[root@localhost ~]# free -th
+              total        used        free      shared  buff/cache   available
+Mem:           3.7G        1.1G        1.6G         44M        1.0G        2.3G
+Swap:          4.0G          0B        4.0G
+Total:         7.7G        1.1G        5.5G
+[root@localhost ~]# #Mention the swap in FS tab file
+[root@localhost ~]# #vi /etc/fstab 
+[root@localhost ~]# #/dev/sdb2    swap   swap  defaults 0    0
+[root@localhost ~]# #mount -a (to verify weathers its mounted)
+[root@localhost ~]# #Reboot the system
+

@@ -1,0 +1,69 @@
+[root@localhost ~]# #How to reduce LVM
+[root@localhost ~]# #To reduce LVM we need to umount the disk
+[root@localhost ~]# #use df -TH to see the mount points
+[root@localhost ~]# df -TH
+Filesystem               Type      Size  Used Avail Use% Mounted on
+devtmpfs                 devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                    tmpfs     2.0G   14M  2.0G   1% /dev/shm
+tmpfs                    tmpfs     2.0G   10M  2.0G   1% /run
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root    xfs        28G  4.3G   24G  16% /
+/dev/sda1                xfs       1.1G  192M  872M  19% /boot
+tmpfs                    tmpfs     398M   41k  398M   1% /run/user/0
+/dev/sr0                 iso9660   4.6G  4.6G     0 100% /mnt
+/dev/mapper/myvol-my_lvm ext4      1.1G  2.7M  965M   1% /kinglvm
+[root@localhost ~]# #Unmount the disk
+[root@localhost ~]# umount /kinglvm
+[root@localhost ~]# e2fsck -f /dev/myvol/my_lvm 
+e2fsck 1.42.9 (28-Dec-2013)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/myvol/my_lvm: 11/73728 files (0.0% non-contiguous), 13469/266240 blocks
+[root@localhost ~]# resize2fs -p /dev/myvol/my_lvm 120M
+resize2fs 1.42.9 (28-Dec-2013)
+Resizing the filesystem on /dev/myvol/my_lvm to 30720 (4k) blocks.
+Begin pass 2 (max = 8192)
+Relocating blocks             XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Begin pass 3 (max = 9)
+Scanning inode table          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+The filesystem on /dev/myvol/my_lvm is now 30720 blocks long.
+
+[root@localhost ~]# lvreduce -L -980M /dev/myvol/my_lvm 
+  Rounding size to boundary between physical extents: 976.00 MiB.
+  WARNING: Reducing active logical volume to 64.00 MiB.
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+Do you really want to reduce myvol/my_lvm? [y/n]: y
+  Size of logical volume myvol/my_lvm changed from <1.02 GiB (65 extents) to 64.00 MiB (4 extents).
+  Logical volume myvol/my_lvm successfully resized.
+[root@localhost ~]# mount /dev/myvol/my_lvm 
+mount: wrong fs type, bad option, bad superblock on /dev/mapper/myvol-my_lvm,
+       missing codepage or helper program, or other error
+
+       In some cases useful info is found in syslog - try
+       dmesg | tail or so.
+[root@localhost ~]# mount /kinglvm/
+mount: wrong fs type, bad option, bad superblock on /dev/mapper/myvol-my_lvm,
+       missing codepage or helper program, or other error
+
+       In some cases useful info is found in syslog - try
+       dmesg | tail or so.
+[root@localhost ~]# mount /kinglvm
+mount: wrong fs type, bad option, bad superblock on /dev/mapper/myvol-my_lvm,
+       missing codepage or helper program, or other error
+
+       In some cases useful info is found in syslog - try
+       dmesg | tail or so.
+[root@localhost ~]# lvs
+  LV     VG    Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  my_lvm myvol -wi-a-----  64.00m                                                    
+  root   rhel  -wi-ao---- <26.00g                                                    
+  swap   rhel  -wi-ao----   3.00g                                                    
+[root@localhost ~]# vgs
+  VG    #PV #LV #SN Attr   VSize   VFree  
+  myvol   1   1   0 wz--n-  <1.02g 976.00m
+  rhel    1   2   0 wz--n- <29.00g      0 
+[root@localhost ~]# 
+
