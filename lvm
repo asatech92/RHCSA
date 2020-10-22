@@ -1,0 +1,829 @@
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000dabca
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    62914559    30407680   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-root: 27.9 GB, 27913093120 bytes, 54517760 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 3221 MB, 3221225472 bytes, 6291456 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+[root@localhost ~]# 
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000dabca
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    62914559    30407680   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-root: 27.9 GB, 27913093120 bytes, 54517760 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 3221 MB, 3221225472 bytes, 6291456 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+[root@localhost ~]# 
+[root@localhost ~]# fdisk /dev/sdb
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x213de5dc.
+
+Command (m for help): m
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   g   create a new empty GPT partition table
+   G   create an IRIX (SGI) partition table
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+Command (m for help): q
+
+[root@localhost ~]# fdisk /dev/sdb
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0xa7d040b9.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1): 
+First sector (2048-20971519, default 2048): 
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-20971519, default 20971519): +1050M
+Partition 1 of type Linux and of size 1 GiB is set
+
+Command (m for help): p
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   83  Linux
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): 8e
+Changed type of partition 'Linux' to 'Linux LVM'
+
+Command (m for help): p
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@localhost ~]# partprobe /dev/sdb
+[root@localhost ~]# df -TH
+Filesystem            Type      Size  Used Avail Use% Mounted on
+devtmpfs              devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                 tmpfs     2.0G     0  2.0G   0% /dev/shm
+tmpfs                 tmpfs     2.0G  9.9M  2.0G   1% /run
+tmpfs                 tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root xfs        28G  4.2G   24G  15% /
+/dev/sda1             xfs       1.1G  192M  872M  19% /boot
+tmpfs                 tmpfs     398M   21k  398M   1% /run/user/0
+[root@localhost ~]# lvs
+  LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  root rhel -wi-ao---- <26.00g                                                    
+  swap rhel -wi-ao----   3.00g                                                    
+[root@localhost ~]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/rhel/swap
+  LV Name                swap
+  VG Name                rhel
+  LV UUID                baLTPF-zsbv-cz1d-Cfac-UeN2-e5W1-uO9rJa
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-10-21 04:27:49 -0400
+  LV Status              available
+  # open                 2
+  LV Size                3.00 GiB
+  Current LE             768
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1
+   
+  --- Logical volume ---
+  LV Path                /dev/rhel/root
+  LV Name                root
+  VG Name                rhel
+  LV UUID                2quGaz-F6kW-EDHJ-a8YC-8xIr-kIOh-209a8o
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-10-21 04:27:50 -0400
+  LV Status              available
+  # open                 1
+  LV Size                <26.00 GiB
+  Current LE             6655
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+   
+[root@localhost ~]# 
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000dabca
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    62914559    30407680   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+
+Disk /dev/mapper/rhel-root: 27.9 GB, 27913093120 bytes, 54517760 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 3221 MB, 3221225472 bytes, 6291456 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+[root@localhost ~]# pvcreate /dev/sdb1
+  Physical volume "/dev/sdb1" successfully created.
+[root@localhost ~]# pvs
+  PV         VG   Fmt  Attr PSize   PFree 
+  /dev/sda2  rhel lvm2 a--  <29.00g     0 
+  /dev/sdb1       lvm2 ---   <1.03g <1.03g
+[root@localhost ~]# pvs
+  PV         VG   Fmt  Attr PSize   PFree 
+  /dev/sda2  rhel lvm2 a--  <29.00g     0 
+  /dev/sdb1       lvm2 ---   <1.03g <1.03g
+[root@localhost ~]# 
+
+
+
+[root@localhost ~]# 
+[root@localhost ~]# #Need to create VG
+[root@localhost ~]# ll
+total 20
+-rw-------. 1 root root 1889 Oct 21 04:42 anaconda-ks.cfg
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Desktop
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Documents
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Downloads
+-rw-r--r--. 1 root root 1962 Oct 21 09:27 initial-setup-ks.cfg
+-rw-r--r--. 1 root root 9353 Oct 21 12:53 lvm
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Music
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Pictures
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Public
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Templates
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Videos
+[root@localhost ~]# 
+
+
+
+
+
+
+
+
+
+
+[root@localhost ~]# vgcreate -s 16M myvol /dev/sdb1
+  Volume group "myvol" successfully created
+[root@localhost ~]# vgdisplay
+  --- Volume group ---
+  VG Name               myvol
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  1
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <1.02 GiB
+  PE Size               16.00 MiB
+  Total PE              65
+  Alloc PE / Size       0 / 0   
+  Free  PE / Size       65 / <1.02 GiB
+  VG UUID               o17S8Q-odZa-jGOH-PQLc-cIdB-m6Uj-SJpdBr
+   
+  --- Volume group ---
+  VG Name               rhel
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  3
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                2
+  Open LV               2
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <29.00 GiB
+  PE Size               4.00 MiB
+  Total PE              7423
+  Alloc PE / Size       7423 / <29.00 GiB
+  Free  PE / Size       0 / 0   
+  VG UUID               izM6Us-91U5-m5wm-RCPQ-A6bW-jga2-JtUvdB
+   
+[root@localhost ~]# #To create LV
+[root@localhost ~]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/rhel/swap
+  LV Name                swap
+  VG Name                rhel
+  LV UUID                baLTPF-zsbv-cz1d-Cfac-UeN2-e5W1-uO9rJa
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-10-21 04:27:49 -0400
+  LV Status              available
+  # open                 2
+  LV Size                3.00 GiB
+  Current LE             768
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1
+   
+  --- Logical volume ---
+  LV Path                /dev/rhel/root
+  LV Name                root
+  VG Name                rhel
+  LV UUID                2quGaz-F6kW-EDHJ-a8YC-8xIr-kIOh-209a8o
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-10-21 04:27:50 -0400
+  LV Status              available
+  # open                 1
+  LV Size                <26.00 GiB
+  Current LE             6655
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+   
+[root@localhost ~]# lv create -l 64 -n my_lvm myvol
+bash: lv: command not found...
+[root@localhost ~]# lv
+bash: lv: command not found...
+[root@localhost ~]# yum reinstall lvm
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+There are no enabled repos.
+ Run "yum repolist all" to see the repos you have.
+ To enable Red Hat Subscription Management repositories:
+     subscription-manager repos --enable <repo>
+ To enable custom repositories:
+     yum-config-manager --enable <repo>
+[root@localhost ~]# yum reinstall lvm2
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+There are no enabled repos.
+ Run "yum repolist all" to see the repos you have.
+ To enable Red Hat Subscription Management repositories:
+     subscription-manager repos --enable <repo>
+ To enable custom repositories:
+     yum-config-manager --enable <repo>
+[root@localhost ~]# mount /dev/sr0 /mnt
+mount: /dev/sr0 is write-protected, mounting read-only
+[root@localhost ~]# cd /etc/yum.repos.d/
+[root@localhost yum.repos.d]# ll
+total 4
+-rw-r--r--. 1 root root 358 Oct 21 09:27 redhat.repo
+[root@localhost yum.repos.d]# cd /home/sadique/
+[root@localhost sadique]# ll
+total 0
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Desktop
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Documents
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Downloads
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Music
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Pictures
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Public
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Templates
+drwxr-xr-x. 2 sadique sadique 6 Oct 21 11:42 Videos
+[root@localhost sadique]# find /home/sadique/ -name *.repo
+[root@localhost sadique]# find /home/sadique/ -name *.repo*
+[root@localhost sadique]# cd /etc/yum.repos.d/
+[root@localhost yum.repos.d]# ll
+total 4
+-rw-r--r--. 1 root root 358 Oct 21 09:27 redhat.repo
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# yum clean all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos': Error parsing config: Error parsing "baseurl = '///mnt'": URL must be http, ftp, file or https not ""
+There are no enabled repos.
+ Run "yum repolist all" to see the repos you have.
+ To enable Red Hat Subscription Management repositories:
+     subscription-manager repos --enable <repo>
+ To enable custom repositories:
+     yum-config-manager --enable <repo>
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# yum repolist all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos': Error parsing config: Error parsing "baseurl = '///mnt'": URL must be http, ftp, file or https not ""
+repolist: 0
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# df -l
+Filesystem            1K-blocks    Used Available Use% Mounted on
+devtmpfs                1922992       0   1922992   0% /dev
+tmpfs                   1940048       0   1940048   0% /dev/shm
+tmpfs                   1940048    9644   1930404   1% /run
+tmpfs                   1940048       0   1940048   0% /sys/fs/cgroup
+/dev/mapper/rhel-root  27245572 4043836  23201736  15% /
+/dev/sda1               1038336  187372    850964  19% /boot
+tmpfs                    388012      24    387988   1% /run/user/0
+/dev/sr0                4420474 4420474         0 100% /mnt
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# yum repolist all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+http:///mnt/repodata/repomd.xml: [Errno 14] curl#6 - "Could not resolve host: http; Unknown error"
+Trying other mirror.
+http:///mnt/repodata/repomd.xml: [Errno 14] curl#6 - "Could not resolve host: http; Unknown error"
+Trying other mirror.
+repo id                                repo name                             status
+baseos                                 baseos                                enabled: 0
+repolist: 0
+[root@localhost yum.repos.d]# yum reinstall lvm
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+No Match for argument: lvm
+http:///mnt/repodata/repomd.xml: [Errno 14] curl#6 - "Could not resolve host: http; Unknown error"
+Trying other mirror.
+
+
+ One of the configured repositories failed (baseos),
+ and yum doesn't have enough cached data to continue. At this point the only
+ safe thing yum can do is fail. There are a few ways to work "fix" this:
+
+     1. Contact the upstream for the repository and get them to fix the problem.
+
+     2. Reconfigure the baseurl/etc. for the repository, to point to a working
+        upstream. This is most often useful if you are using a newer
+        distribution release than is supported by the repository (and the
+        packages for the previous distribution release still work).
+
+     3. Run the command with the repository temporarily disabled
+            yum --disablerepo=baseos ...
+
+     4. Disable the repository permanently, so yum won't use it by default. Yum
+        will then just ignore the repository until you permanently enable it
+        again or use --enablerepo for temporary usage:
+
+            yum-config-manager --disable baseos
+        or
+            subscription-manager repos --disable=baseos
+
+     5. Configure the failing repository to be skipped, if it is unavailable.
+        Note that yum will try to contact the repo. when it runs most commands,
+        so will have to try and fail each time (and thus. yum will be be much
+        slower). If it is a very temporary problem though, this is often a nice
+        compromise:
+
+            yum-config-manager --save --setopt=baseos.skip_if_unavailable=true
+
+failure: repodata/repomd.xml from baseos: [Errno 256] No more mirrors to try.
+http:///mnt/repodata/repomd.xml: [Errno 14] curl#6 - "Could not resolve host: http; Unknown error"
+[root@localhost yum.repos.d]# yum reinstall lvm2
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+http:///mnt/repodata/repomd.xml: [Errno 14] curl#6 - "Could not resolve host: http; Unknown error"
+Trying other mirror.
+
+
+ One of the configured repositories failed (baseos),
+ and yum doesn't have enough cached data to continue. At this point the only
+ safe thing yum can do is fail. There are a few ways to work "fix" this:
+
+     1. Contact the upstream for the repository and get them to fix the problem.
+
+     2. Reconfigure the baseurl/etc. for the repository, to point to a working
+        upstream. This is most often useful if you are using a newer
+        distribution release than is supported by the repository (and the
+        packages for the previous distribution release still work).
+
+     3. Run the command with the repository temporarily disabled
+            yum --disablerepo=baseos ...
+
+     4. Disable the repository permanently, so yum won't use it by default. Yum
+        will then just ignore the repository until you permanently enable it
+        again or use --enablerepo for temporary usage:
+
+            yum-config-manager --disable baseos
+        or
+            subscription-manager repos --disable=baseos
+
+     5. Configure the failing repository to be skipped, if it is unavailable.
+        Note that yum will try to contact the repo. when it runs most commands,
+        so will have to try and fail each time (and thus. yum will be be much
+        slower). If it is a very temporary problem though, this is often a nice
+        compromise:
+
+            yum-config-manager --save --setopt=baseos.skip_if_unavailable=true
+
+failure: repodata/repomd.xml from baseos: [Errno 256] No more mirrors to try.
+http:///mnt/repodata/repomd.xml: [Errno 14] curl#6 - "Could not resolve host: http; Unknown error"
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# yum repolist all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos': Error parsing config: Error parsing "baseurl = '/mnt'": URL must be http, ftp, file or https not ""
+repolist: 0
+[root@localhost yum.repos.d]# yum clean all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos': Error parsing config: Error parsing "baseurl = '/mnt'": URL must be http, ftp, file or https not ""
+There are no enabled repos.
+ Run "yum repolist all" to see the repos you have.
+ To enable Red Hat Subscription Management repositories:
+     subscription-manager repos --enable <repo>
+ To enable custom repositories:
+     yum-config-manager --enable <repo>
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# yum clean all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+Cleaning repos: baseos
+[root@localhost yum.repos.d]# yum repolist all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+baseos                                                          | 2.8 kB  00:00:00     
+(1/2): baseos/group                                             | 628 kB  00:00:00     
+(2/2): baseos/primary                                           | 2.1 MB  00:00:00     
+baseos                                                                       5230/5230
+repo id                              repo name                           status
+baseos                               baseos                              enabled: 5,230
+repolist: 5,230
+[root@localhost yum.repos.d]# yum install lvm2
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+Package 7:lvm2-2.02.187-6.el7.x86_64 already installed and latest version
+Nothing to do
+[root@localhost yum.repos.d]# mount -o /dev/sr0 /mnt
+mount: /dev/sr0 is already mounted or /mnt busy
+       /dev/sr0 is already mounted on /run/media/root/RHEL-7.9 Server.x86_64
+       /dev/sr0 is already mounted on /mnt
+[root@localhost yum.repos.d]# yum repolist enabled
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+repo id                                  repo name                               status
+baseos                                   baseos                                  5,230
+repolist: 5,230
+[root@localhost yum.repos.d]# yum update
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+No packages marked for update
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# df -TH
+Filesystem            Type      Size  Used Avail Use% Mounted on
+devtmpfs              devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                 tmpfs     2.0G     0  2.0G   0% /dev/shm
+tmpfs                 tmpfs     2.0G  9.9M  2.0G   1% /run
+tmpfs                 tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root xfs        28G  4.2G   24G  15% /
+/dev/sda1             xfs       1.1G  192M  872M  19% /boot
+tmpfs                 tmpfs     398M   25k  398M   1% /run/user/0
+/dev/sr0              iso9660   4.6G  4.6G     0 100% /mnt
+[root@localhost yum.repos.d]# cd /mnt/
+[root@localhost mnt]# ll
+total 974
+dr-xr-xr-x. 4 root root   2048 Sep 17 15:35 addons
+dr-xr-xr-x. 3 root root   2048 Sep 17 15:35 EFI
+-r--r--r--. 1 root root   8266 Sep 17 14:27 EULA
+-r--r--r--. 1 root root   1455 Sep 17 14:27 extra_files.json
+-r--r--r--. 1 root root  18092 Sep 17 14:27 GPL
+dr-xr-xr-x. 3 root root   2048 Sep 17 15:35 images
+dr-xr-xr-x. 2 root root   2048 Sep 17 15:35 isolinux
+dr-xr-xr-x. 2 root root   2048 Sep 17 15:35 LiveOS
+-r--r--r--. 1 root root    114 Sep 17 15:08 media.repo
+dr-xr-xr-x. 2 root root 946176 Sep 17 15:35 Packages
+dr-xr-xr-x. 2 root root   2048 Sep 17 15:35 repodata
+-r--r--r--. 1 root root   3375 Jul 14 10:15 RPM-GPG-KEY-redhat-beta
+-r--r--r--. 1 root root   3211 Jul 14 10:15 RPM-GPG-KEY-redhat-release
+-r--r--r--. 1 root root   1796 Sep 17 15:35 TRANS.TBL
+[root@localhost mnt]# vi new.repo
+[root@localhost mnt]# cd /etc/yum.repos.d/
+[root@localhost yum.repos.d]# ll
+total 8
+-rw-r--r--. 1 root root  50 Oct 21 13:12 new.repo
+-rw-r--r--. 1 root root 358 Oct 21 09:27 redhat.repo
+[root@localhost yum.repos.d]# rm redhat.repo 
+rm: remove regular file ‘redhat.repo’? y
+[root@localhost yum.repos.d]# ll
+total 4
+-rw-r--r--. 1 root root 50 Oct 21 13:12 new.repo
+[root@localhost yum.repos.d]# yum clean all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+Cleaning repos: baseos
+[root@localhost yum.repos.d]# vi new.repo
+[root@localhost yum.repos.d]# yum clean all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+Cleaning repos: baseos
+[root@localhost yum.repos.d]# yum repolist all
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+baseos                                                          | 2.8 kB  00:00:00     
+(1/2): baseos/group                                             | 628 kB  00:00:00     
+(2/2): baseos/primary                                           | 2.1 MB  00:00:00     
+baseos                                                                       5230/5230
+repo id                              repo name                           status
+baseos                               baseos                              enabled: 5,230
+repolist: 5,230
+[root@localhost yum.repos.d]# yum install lvm2
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+
+Repository 'baseos' is missing name in configuration, using id
+Package 7:lvm2-2.02.187-6.el7.x86_64 already installed and latest version
+Nothing to do
+[root@localhost yum.repos.d]# 
+[root@localhost yum.repos.d]# lv create -l 64 -n my_lvm myvol
+bash: lv: command not found...
+[root@localhost yum.repos.d]# lvcreate -l 64 -n my_lvm myvol
+  Logical volume "my_lvm" created.
+[root@localhost yum.repos.d]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/myvol/my_lvm
+  LV Name                my_lvm
+  VG Name                myvol
+  LV UUID                3HZJiE-dr6O-UXHW-KAAz-lpKg-uYyR-n7KYwx
+  LV Write Access        read/write
+  LV Creation host, time localhost.localdomain, 2020-10-21 13:19:17 -0400
+  LV Status              available
+  # open                 0
+  LV Size                1.00 GiB
+  Current LE             64
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:2
+   
+  --- Logical volume ---
+  LV Path                /dev/rhel/swap
+  LV Name                swap
+  VG Name                rhel
+  LV UUID                baLTPF-zsbv-cz1d-Cfac-UeN2-e5W1-uO9rJa
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-10-21 04:27:49 -0400
+  LV Status              available
+  # open                 2
+  LV Size                3.00 GiB
+  Current LE             768
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1
+   
+  --- Logical volume ---
+  LV Path                /dev/rhel/root
+  LV Name                root
+  VG Name                rhel
+  LV UUID                2quGaz-F6kW-EDHJ-a8YC-8xIr-kIOh-209a8o
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-10-21 04:27:50 -0400
+  LV Status              available
+  # open                 1
+  LV Size                <26.00 GiB
+  Current LE             6655
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+   
+[root@localhost yum.repos.d]# mkfs.ext4 /dev/myvol/my_lvm 
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+65536 inodes, 262144 blocks
+13107 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=268435456
+8 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+[root@localhost yum.repos.d]# blkid
+/dev/sda1: UUID="f509ff37-cc90-4398-8632-9ce82422a622" TYPE="xfs" 
+/dev/sda2: UUID="Li1vfp-A1K9-p3Zq-NIQL-Tmuk-1Vre-mAC6eN" TYPE="LVM2_member" 
+/dev/sdb1: UUID="cFyaQc-TSqc-oGl1-1hFY-fLXq-S2FO-kVmvIv" TYPE="LVM2_member" 
+/dev/sr0: UUID="2020-09-17-19-35-15-00" LABEL="RHEL-7.9 Server.x86_64" TYPE="iso9660" PTTYPE="dos" 
+/dev/mapper/rhel-root: UUID="a7320886-57bd-4c82-a911-5d2108cfae68" TYPE="xfs" 
+/dev/mapper/rhel-swap: UUID="49761ca5-9765-45dc-8c61-7019a6463c15" TYPE="swap" 
+/dev/mapper/myvol-my_lvm: UUID="c27b3af7-c20b-4341-b843-5b6a64b0cac0" TYPE="ext4" 
+[root@localhost yum.repos.d]# mkdir /kinglvm
+[root@localhost yum.repos.d]# mount /dev/myvol/my_lvm /kinglvm/
+[root@localhost yum.repos.d]# vi /etc/fstab 
+[root@localhost yum.repos.d]# d -TH
+bash: d: command not found...
+[root@localhost yum.repos.d]# df -TH
+Filesystem               Type      Size  Used Avail Use% Mounted on
+devtmpfs                 devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /dev/shm
+tmpfs                    tmpfs     2.0G  9.9M  2.0G   1% /run
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root    xfs        28G  4.2G   24G  15% /
+/dev/sda1                xfs       1.1G  192M  872M  19% /boot
+tmpfs                    tmpfs     398M   25k  398M   1% /run/user/0
+/dev/sr0                 iso9660   4.6G  4.6G     0 100% /mnt
+/dev/mapper/myvol-my_lvm ext4      1.1G  2.7M  951M   1% /kinglvm
+[root@localhost yum.repos.d]# vi /etc/fstab 
+[root@localhost yum.repos.d]# mount -a
+[root@localhost yum.repos.d]# cd /kinglvm/
+[root@localhost kinglvm]# ll
+total 16
+drwx------. 2 root root 16384 Oct 21 13:20 lost+found
+[root@localhost kinglvm]# df -TH
+Filesystem               Type      Size  Used Avail Use% Mounted on
+devtmpfs                 devtmpfs  2.0G     0  2.0G   0% /dev
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /dev/shm
+tmpfs                    tmpfs     2.0G  9.9M  2.0G   1% /run
+tmpfs                    tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root    xfs        28G  4.2G   24G  15% /
+/dev/sda1                xfs       1.1G  192M  872M  19% /boot
+tmpfs                    tmpfs     398M   25k  398M   1% /run/user/0
+/dev/sr0                 iso9660   4.6G  4.6G     0 100% /mnt
+/dev/mapper/myvol-my_lvm ext4      1.1G  2.7M  951M   1% /kinglvm
+[root@localhost kinglvm]# cd
+[root@localhost ~]# ll
+total 20
+-rw-------. 1 root root 1889 Oct 21 04:42 anaconda-ks.cfg
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Desktop
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Documents
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Downloads
+-rw-r--r--. 1 root root 1962 Oct 21 09:27 initial-setup-ks.cfg
+-rw-r--r--. 1 root root 9353 Oct 21 12:53 lvm
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Music
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Pictures
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Public
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Templates
+drwxr-xr-x. 2 root root    6 Oct 21 09:27 Videos
