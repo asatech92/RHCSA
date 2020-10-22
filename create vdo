@@ -1,0 +1,338 @@
+[root@localhost ~]# #Create vdo, in exam the name of the disk on which this task needs to be performed would not be given.
+[root@localhost ~]# #I have kept /dev/sdc for this task un touched. 
+[root@localhost ~]# #Mount point will be given in exam, vdo packages and its dependencies would be already installed
+[root@localhost ~]# #To check weather its already installed fire below command
+[root@localhost ~]# rpm -qa vdo*
+vdo-6.1.3.23-5.el7.x86_64
+[root@localhost ~]# systemctl status vdo 
+● vdo.service - VDO volume services
+   Loaded: loaded (/usr/lib/systemd/system/vdo.service; enabled; vendor preset: enabled)
+   Active: active (exited) since Wed 2020-10-21 11:51:18 EDT; 11h ago
+  Process: 796 ExecStart=/usr/bin/vdo start --all --confFile /etc/vdoconf.yml (code=exited, status=0/SUCCESS)
+ Main PID: 796 (code=exited, status=0/SUCCESS)
+    Tasks: 0
+   CGroup: /system.slice/vdo.service
+
+Oct 21 11:51:17 localhost.localdomain systemd[1]: Starting VDO volume services...
+Oct 21 11:51:18 localhost.localdomain systemd[1]: Started VDO volume services.
+[root@localhost ~]# #If its activate and not enabled, enable it else after reboot service will not start
+[root@localhost ~]# #systemctl enable vdo
+[root@localhost ~]# #create a vdo and name it as per given in exam. In exam we have to make whole disk as a vdo. We will keep a disk untoched for this task. I have kept /dev/sdc
+[root@localhost ~]# #create vdo
+[root@localhost ~]# vdo create --name=labvdo1 --device=/dev/sdc --vdoLogicalSize=20G
+Creating VDO labvdo1
+Starting VDO labvdo1
+Starting compression on VDO labvdo1
+VDO instance 0 volume is ready at /dev/mapper/labvdo1
+[root@localhost ~]# #We can use "man vdo' to check command if we dont remember it
+[root@localhost ~]# #To check weather vo is created, fire below command
+[root@localhost ~]# vdo list
+labvdo1
+[root@localhost ~]# vdo status
+VDO status:
+  Date: '2020-10-21 22:57:16-04:00'
+  Node: localhost.localdomain
+Kernel module:
+  Loaded: true
+  Name: kvdo
+  Version information:
+    kvdo version: 6.1.3.23
+Configuration:
+  File: /etc/vdoconf.yml
+  Last modified: '2020-10-21 22:56:04'
+VDOs:
+  labvdo1:
+    Acknowledgement threads: 1
+    Activate: enabled
+    Bio rotation interval: 64
+    Bio submission threads: 4
+    Block map cache size: 128M
+    Block map period: 16380
+    Block size: 4096
+    CPU-work threads: 2
+    Compression: enabled
+    Configured write policy: auto
+    Deduplication: enabled
+    Device mapper status: 0 41943040 vdo /dev/sdc normal - online online 1049638 2621440
+    Emulate 512 byte: disabled
+    Hash zone threads: 1
+    Index checkpoint frequency: 0
+    Index memory setting: 0.25
+    Index parallel factor: 0
+    Index sparse: disabled
+    Index status: online
+    Logical size: 20G
+    Logical threads: 1
+    Physical size: 10G
+    Physical threads: 1
+    Read cache: disabled
+    Read cache size: 0M
+    Slab size: 2G
+    Storage device: /dev/disk/by-id/ata-VBOX_HARDDISK_VB15c7ff85-e09f5513
+    VDO statistics:
+      /dev/mapper/labvdo1:
+        1K-blocks: 10485760
+        1K-blocks available: 6287208
+        1K-blocks used: 4198552
+        512 byte emulation: false
+        KVDO module bios used: 37286
+        KVDO module bytes used: 424691376
+        KVDO module peak bio count: 37574
+        KVDO module peak bytes used: 424695200
+        bios acknowledged discard: 0
+        bios acknowledged flush: 0
+        bios acknowledged fua: 0
+        bios acknowledged partial discard: 0
+        bios acknowledged partial flush: 0
+        bios acknowledged partial fua: 0
+        bios acknowledged partial read: 0
+        bios acknowledged partial write: 0
+        bios acknowledged read: 259
+        bios acknowledged write: 0
+        bios in discard: 0
+        bios in flush: 0
+        bios in fua: 0
+        bios in partial discard: 0
+        bios in partial flush: 0
+        bios in partial fua: 0
+        bios in partial read: 0
+        bios in partial write: 0
+        bios in progress discard: 0
+        bios in progress flush: 0
+        bios in progress fua: 0
+        bios in progress read: 0
+        bios in progress write: 0
+        bios in read: 259
+        bios in write: 0
+        bios journal completed discard: 0
+        bios journal completed flush: 0
+        bios journal completed fua: 0
+        bios journal completed read: 0
+        bios journal completed write: 0
+        bios journal discard: 0
+        bios journal flush: 0
+        bios journal fua: 0
+        bios journal read: 0
+        bios journal write: 0
+        bios meta completed discard: 0
+        bios meta completed flush: 1
+        bios meta completed fua: 1
+        bios meta completed read: 3
+        bios meta completed write: 65
+        bios meta discard: 0
+        bios meta flush: 1
+        bios meta fua: 1
+        bios meta read: 3
+        bios meta write: 65
+        bios out completed discard: 0
+        bios out completed flush: 0
+        bios out completed fua: 0
+        bios out completed read: 0
+        bios out completed write: 0
+        bios out discard: 0
+        bios out flush: 0
+        bios out fua: 0
+        bios out read: 0
+        bios out write: 0
+        bios page cache completed discard: 0
+        bios page cache completed flush: 0
+        bios page cache completed fua: 0
+        bios page cache completed read: 0
+        bios page cache completed write: 0
+        bios page cache discard: 0
+        bios page cache flush: 0
+        bios page cache fua: 0
+        bios page cache read: 0
+        bios page cache write: 0
+        block map cache pressure: 0
+        block map cache size: 134217728
+        block map clean pages: 0
+        block map dirty pages: 0
+        block map discard required: 0
+        block map failed pages: 0
+        block map failed reads: 0
+        block map failed writes: 0
+        block map fetch required: 0
+        block map flush count: 0
+        block map found in cache: 0
+        block map free pages: 32768
+        block map incoming pages: 0
+        block map outgoing pages: 0
+        block map pages loaded: 0
+        block map pages saved: 0
+        block map read count: 0
+        block map read outgoing: 0
+        block map reclaimed: 0
+        block map wait for page: 0
+        block map write count: 0
+        block size: 4096
+        completed recovery count: 0
+        compressed blocks written: 0
+        compressed fragments in packer: 0
+        compressed fragments written: 0
+        concurrent data matches: 0
+        concurrent hash collisions: 0
+        current VDO IO requests in progress: 0
+        current dedupe queries: 0
+        data blocks used: 0
+        dedupe advice stale: 0
+        dedupe advice timeouts: 0
+        dedupe advice valid: 0
+        entries indexed: 0
+        flush out: 0
+        instance: 0
+        invalid advice PBN count: 0
+        journal blocks batching: 0
+        journal blocks committed: 0
+        journal blocks started: 0
+        journal blocks writing: 0
+        journal blocks written: 0
+        journal commits requested count: 0
+        journal disk full count: 0
+        journal entries batching: 0
+        journal entries committed: 0
+        journal entries started: 0
+        journal entries writing: 0
+        journal entries written: 0
+        logical blocks: 5242880
+        logical blocks used: 0
+        maximum VDO IO requests in progress: 32
+        maximum dedupe queries: 0
+        no space error count: 0
+        operating mode: normal
+        overhead blocks used: 1049638
+        physical blocks: 2621440
+        posts found: 0
+        posts not found: 0
+        queries found: 0
+        queries not found: 0
+        read cache accesses: 0
+        read cache data hits: 0
+        read cache hits: 0
+        read only error count: 0
+        read-only recovery count: 0
+        recovery progress (%): N/A
+        reference blocks written: 0
+        release version: 131337
+        saving percent: N/A
+        slab count: 3
+        slab journal blocked count: 0
+        slab journal blocks written: 0
+        slab journal disk full count: 0
+        slab journal flush count: 0
+        slab journal tail busy count: 0
+        slab summary blocks written: 0
+        slabs opened: 0
+        slabs reopened: 0
+        updates found: 0
+        updates not found: 0
+        used percent: 40
+        version: 28
+        write amplification ratio: 0.0
+        write policy: async
+[root@localhost ~]# fdsik -l
+bash: fdsik: command not found...
+Similar command is: 'fdisk'
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 32.2 GB, 32212254720 bytes, 62914560 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000dabca
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    62914559    30407680   8e  Linux LVM
+
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes, 20971520 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0xa7d040b9
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            2048     2152447     1075200   8e  Linux LVM
+/dev/sdb2         2152448     4171775     1009664   82  Linux swap / Solaris
+
+Disk /dev/mapper/rhel-root: 27.9 GB, 27913093120 bytes, 54517760 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/rhel-swap: 3221 MB, 3221225472 bytes, 6291456 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/myvol-my_lvm: 67 MB, 67108864 bytes, 131072 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/labvdo1: 21.5 GB, 21474836480 bytes, 5242880 sectors
+Units = sectors of 1 * 4096 = 4096 bytes
+Sector size (logical/physical): 4096 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+[root@localhost ~]# lsblk
+NAME             MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                8:0    0   30G  0 disk 
+├─sda1             8:1    0    1G  0 part /boot
+└─sda2             8:2    0   29G  0 part 
+  ├─rhel-root    253:0    0   26G  0 lvm  /
+  └─rhel-swap    253:1    0    3G  0 lvm  [SWAP]
+sdb                8:16   0   10G  0 disk 
+├─sdb1             8:17   0    1G  0 part 
+│ └─myvol-my_lvm 253:2    0   64M  0 lvm  
+└─sdb2             8:18   0  986M  0 part [SWAP]
+sdc                8:32   0   10G  0 disk 
+└─labvdo1        253:3    0   20G  0 vdo  
+sr0               11:0    1  4.2G  0 rom  /mnt
+[root@localhost ~]# blkid
+/dev/sda1: UUID="f509ff37-cc90-4398-8632-9ce82422a622" TYPE="xfs" 
+/dev/sda2: UUID="Li1vfp-A1K9-p3Zq-NIQL-Tmuk-1Vre-mAC6eN" TYPE="LVM2_member" 
+/dev/sdb1: UUID="cFyaQc-TSqc-oGl1-1hFY-fLXq-S2FO-kVmvIv" TYPE="LVM2_member" 
+/dev/sr0: UUID="2020-09-17-19-35-15-00" LABEL="RHEL-7.9 Server.x86_64" TYPE="iso9660" PTTYPE="dos" 
+/dev/mapper/rhel-root: UUID="a7320886-57bd-4c82-a911-5d2108cfae68" TYPE="xfs" 
+/dev/mapper/rhel-swap: UUID="49761ca5-9765-45dc-8c61-7019a6463c15" TYPE="swap" 
+/dev/mapper/myvol-my_lvm: UUID="c27b3af7-c20b-4341-b843-5b6a64b0cac0" TYPE="ext4" 
+/dev/sdb2: UUID="9a029ab6-c88d-441f-9f42-0dbec3edd16b" TYPE="swap" 
+/dev/sdc: UUID="a181362e-1fa2-4cd9-8f0f-a8f2c6fcdec0" TYPE="vdo" 
+[root@localhost ~]# #Format it. If the file sytem is not provided then format it with the latest FS i.e xfs
+[root@localhost ~]# mkfs.xfs /dev/mapper/labvdo1 
+Discarding blocks...Done.
+meta-data=/dev/mapper/labvdo1    isize=512    agcount=4, agsize=1310720 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=5242880, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+[root@localhost ~]# #Create a mount point and mount it, mount point will be given in exam
+[root@localhost ~]# mkdir /vdodata
+[root@localhost ~]# mount /dev/mapper/labvdo1 /vdodata/
+[root@localhost ~]# #Mention the mounting details in FS tab /etc/fstab
+[root@localhost ~]# #vi /etc/fstab
+[root@localhost ~]# #/dev/mapper/labvdo1  /vdodata xfs   defaults,x-systemd.requires=vdo.service     0      0
+[root@localhost ~]# vi /etc/fstab 
+[root@localhost ~]# mount -a
+mount: wrong fs type, bad option, bad superblock on /dev/mapper/myvol-my_lvm,
+       missing codepage or helper program, or other error
+
+       In some cases useful info is found in syslog - try
+       dmesg | tail or so.
+
